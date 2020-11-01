@@ -17,7 +17,16 @@ export default function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
       containerComponent={
         <VictoryVoronoiContainer
           labels={({ datum }) =>
-            `${new Date(datum[0]).toLocaleDateString('en-UK')}, $${datum[1].toFixed(2)}`
+            `${new Date(datum[0]).toLocaleDateString('en-UK')}, $${
+              Math.round((datum[1] + Number.EPSILON) * 100) / 100
+            }`
+          }
+          labelComponent={
+            <VictoryTooltip
+              constrainToVisibleArea
+              flyoutStyle={{ strokeWidth: 1 }}
+              style={{ fontSize: 10 }}
+            />
           }
         />
       }
@@ -30,7 +39,6 @@ export default function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
         x={0}
         y={1}
         style={{ data: { stroke: 'red', strokeWidth: 1 } }}
-        labelComponent={<VictoryTooltip />}
       />
     </VictoryChart>
   )
