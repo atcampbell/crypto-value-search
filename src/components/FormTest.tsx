@@ -3,27 +3,27 @@ import React, { useState } from 'react'
 type FormTestProps = { onSubmit: (searchTerm: string) => void }
 
 export default function FormTest({ onSubmit }: FormTestProps): JSX.Element {
-  const [coin, setCoin] = useState<string>('')
+  const [currency, setCurrency] = useState<string>('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setCoin(e.currentTarget.value)
+    setCurrency(e.currentTarget.value)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    onSubmit(coin)
+    onSubmit(currency)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Search by coin name</label>
+      <label>Search by currency by name</label>
       <input
         id="coinSearch"
-        placeholder="Coin name..."
+        placeholder="Currency..."
         type="text"
-        value={coin}
+        value={currency}
         onChange={handleChange}
       />
-      <button type="submit" disabled={!coin}>
+      <button type="submit" disabled={!currency}>
         Search
       </button>
     </form>
