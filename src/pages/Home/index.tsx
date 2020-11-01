@@ -10,13 +10,13 @@ import PriceHistory from '../../components/PriceHistory'
 
 // TODO should these just be the types?
 // maybe make a generic response type?
-interface CurrencyResponse {
+type CurrencyResponse = {
   loading: boolean
   data: Currency | null
   error: string
 }
 
-interface CurrencyHistoryResponse {
+type CurrencyHistoryResponse = {
   loading: boolean
   data: CurrencyHistory | null
   error: string
@@ -66,7 +66,7 @@ function Home(): JSX.Element {
 
   return (
     <>
-      <div>Hello from Cozero!</div>
+      <h1>Cryptocurrency Search Tool</h1>
       <FormTest onSubmit={handleSearch} />
       <PreviousSearches searches={prevSearches} />
       {currencyData.loading && <div>LOADING...</div>}

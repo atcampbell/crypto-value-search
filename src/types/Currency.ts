@@ -1,4 +1,5 @@
-export default interface Currency {
+// TODO make type
+export default interface CurrencyData {
   name: string
   imageUrl: string
   marketCapRank: number
