@@ -12,6 +12,9 @@ interface State {
   error: string
 }
 
+// TODO names of types and components
+// testing
+// give this a unique name?
 export default function (): JSX.Element {
   const [state, setState] = useState<State>({
     prevSearches: [],
