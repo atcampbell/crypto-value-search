@@ -1,31 +1,50 @@
 import React from 'react'
 import Currency from '../types/Currency'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core'
+import { green, red } from '@material-ui/core/colors'
 
-type CurrenctDataProps = { data: Currency }
+interface CurrenctDataProps {
+  data: Currency
+}
 
 export default function CurrencyData({ data }: CurrenctDataProps): JSX.Element {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th>Current Value</th>
-          <th>Market Cap Rank</th>
-          <th>Percentage change in last 24h</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <img src={data.imageUrl} alt={`${data.name} logo`}></img>
-          </td>
-          <td>{data.name}</td>
-          <td>{`$${data.currentValue}`}</td>
-          <td>{data.marketCapRank}</td>
-          <td>{data.priceChangePercentage24h}</td>
-        </tr>
-      </tbody>
-    </table>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell align="right">Current Value</TableCell>
+            <TableCell align="right">Market Cap Rank</TableCell>
+            <TableCell align="right">24h Percentage Change</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <img src={data.imageUrl} alt={`${data.name} logo`}></img>
+            </TableCell>
+            <TableCell>{data.name}</TableCell>
+            <TableCell align="right">{`$${data.currentValue}`}</TableCell>
+            <TableCell align="right">{data.marketCapRank}</TableCell>
+            <TableCell
+              align="right"
+              style={{ color: data.priceChangePercentage24h > 0 ? green[500] : red[500] }}
+            >
+              {`${data.priceChangePercentage24h.toFixed(1)}%`}
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }

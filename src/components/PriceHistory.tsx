@@ -8,9 +8,11 @@ import {
   VictoryVoronoiContainer,
   VictoryTheme,
 } from 'victory'
-import CurrencyHistory from '../types/CurrencyHistory'
+import PriceHistoryData from '../types/PriceHistoryDate'
 
-type PriceHistoryProps = { data: CurrencyHistory }
+interface PriceHistoryProps {
+  data: PriceHistoryData
+}
 
 export default function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
   return (
@@ -20,9 +22,7 @@ export default function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
       containerComponent={
         <VictoryVoronoiContainer
           labels={({ datum }) =>
-            `${new Date(datum[0]).toLocaleDateString('en-UK')}, $${
-              Math.round((datum[1] + Number.EPSILON) * 100) / 100
-            }`
+            `${new Date(datum[0]).toLocaleDateString('en-UK')}, $${datum[1].toFixed(2)}`
           }
           labelComponent={
             <VictoryTooltip

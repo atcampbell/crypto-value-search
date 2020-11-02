@@ -12,6 +12,8 @@
     "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "fontsource-roboto": "^3.0.3",
     "history": "^5.0.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",

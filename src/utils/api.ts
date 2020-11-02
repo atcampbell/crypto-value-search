@@ -1,5 +1,5 @@
 import Currency from '../types/Currency'
-import CurrencyHistory from '../types/CurrencyHistory'
+import PriceHistoryData from '../types/PriceHistoryDate'
 
 export async function fetchCurrencyData(name: string): Promise<Currency> {
   const response = await fetch(`https://api.coingecko.com/api/v3/coins/${name}`)
@@ -21,7 +21,7 @@ export async function fetchCurrencyData(name: string): Promise<Currency> {
   }
 }
 
-export async function fetchCurrencyHistory(name: string): Promise<CurrencyHistory> {
+export async function fetchPriceHistory(name: string): Promise<PriceHistoryData> {
   const response = await fetch(
     `https://api.coingecko.com/api/v3/coins/${name}/market_chart?vs_currency=usd&days=7`,
   )

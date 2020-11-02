@@ -7,6 +7,7 @@ import * as serviceWorker from './utils/serviceWorker'
 import Home from './pages/Home'
 import './index.css'
 import { config } from './utils/config'
+import 'fontsource-roboto'
 
 function App(): JSX.Element {
   return (
