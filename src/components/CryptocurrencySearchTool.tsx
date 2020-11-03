@@ -1,16 +1,27 @@
 import React from 'react'
 import { Typography, Grid, CircularProgress } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { Currency } from '../types/Currency'
+import { PriceHistory } from '../types/PriceHistory'
 import QueryForm from './QueryForm'
 import PreviousSearches from './PreviousSearches'
-import Currency from './Currency'
-import PriceHistory from './PriceHistory'
+import CurrencyTable from './CurrencyTable'
+import PriceHistoryChart from './PriceHistoryChart'
 import ErrorCard from './ErrorCard'
 
-interface CurrencyAppProps {
+const useStyles = makeStyles((theme) => ({
+  progressOuter: {
+    textAlign: 'center',
+    margin: theme.spacing(4),
+    height: '40px',
+  },
+}))
+
+interface CryptocurrencySearchToolProps {
   handleSearch: (query: string) => void
   previousSearches: string[]
-  currencyData: ICurrency | null
-  priceHistory: IPriceHistory | null
+  currency: Currency | null
+  priceHistory: PriceHistory | null
   loading: boolean
   error: string
 }
@@ -18,11 +29,13 @@ interface CurrencyAppProps {
 function CryptocurrencySearchTool({
   handleSearch,
   previousSearches,
-  currencyData,
+  currency,
   priceHistory,
   loading,
   error,
-}: CurrencyAppProps): JSX.Element {
+}: CryptocurrencySearchToolProps): JSX.Element {
+  const classes = useStyles()
+
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid item xs={12}>
@@ -38,7 +51,9 @@ function CryptocurrencySearchTool({
       </Grid>
       {loading && (
         <Grid item xs={12}>
-          <CircularProgress />
+          <div className={classes.progressOuter}>
+            <CircularProgress />
+          </div>
         </Grid>
       )}
       {error && (
@@ -46,13 +61,13 @@ function CryptocurrencySearchTool({
           <ErrorCard message={error} />
         </Grid>
       )}
-      {currencyData && priceHistory && (
+      {currency && priceHistory && (
         <>
           <Grid item xs={12}>
-            <Currency data={currencyData} />
+            <CurrencyTable currency={currency} />
           </Grid>
           <Grid item xs={12}>
-            <PriceHistory data={priceHistory} />
+            <PriceHistoryChart priceHistory={priceHistory} />
           </Grid>
         </>
       )}

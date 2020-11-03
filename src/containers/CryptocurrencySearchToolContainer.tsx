@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { fetchCurrencyData, fetchPriceHistory } from '../api/api'
+import { fetchCurrency, fetchPriceHistory } from '../api/api'
+import { Currency } from '../types/Currency'
+import { PriceHistory } from '../types/PriceHistory'
 import CryptocurrencySearchTool from '../components/CryptocurrencySearchTool'
 
 interface State {
   previousSearches: string[]
-  currencyData: ICurrency | null
-  priceHistory: IPriceHistory | null
+  currency: Currency | null
+  priceHistory: PriceHistory | null
   loading: boolean
   error: string
 }
@@ -13,7 +15,7 @@ interface State {
 function CryptocurrencySearchToolContainer(): JSX.Element {
   const [state, setState] = useState<State>({
     previousSearches: [],
-    currencyData: null,
+    currency: null,
     priceHistory: null,
     loading: false,
     error: '',
@@ -23,15 +25,15 @@ function CryptocurrencySearchToolContainer(): JSX.Element {
   useEffect(() => {
     const getCurrencyData = async (searchTerm: string) => {
       try {
-        const currencyDataResponse = await fetchCurrencyData(searchTerm)
-        const priceHistoryResponse = await fetchPriceHistory(searchTerm)
+        const currency = await fetchCurrency(searchTerm)
+        const priceHistory = await fetchPriceHistory(searchTerm)
 
         setState((state) => ({
           ...state,
-          currencyData: currencyDataResponse,
-          priceHistory: priceHistoryResponse,
+          currency,
+          priceHistory,
           loading: false,
-          previousSearches: [currencyDataResponse.name, ...state.previousSearches],
+          previousSearches: [currency.name, ...state.previousSearches],
         }))
       } catch (e) {
         setState((state: State) => ({
@@ -45,7 +47,7 @@ function CryptocurrencySearchToolContainer(): JSX.Element {
     if (query) {
       setState((state: State) => ({
         ...state,
-        currencyData: null,
+        currency: null,
         priceHistory: null,
         loading: true,
         error: '',
@@ -60,7 +62,7 @@ function CryptocurrencySearchToolContainer(): JSX.Element {
 
   return (
     <CryptocurrencySearchTool
-      currencyData={state.currencyData}
+      currency={state.currency}
       priceHistory={state.priceHistory}
       error={state.error}
       previousSearches={state.previousSearches}

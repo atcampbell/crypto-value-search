@@ -2,10 +2,6 @@ import React, { useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-interface QueryForm {
-  onSubmit: (searchTerm: string) => void
-}
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
@@ -13,26 +9,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+interface QueryForm {
+  onSubmit: (searchTerm: string) => void
+}
+
 function QueryForm({ onSubmit }: QueryForm): JSX.Element {
-  const [currency, setCurrency] = useState<string>('')
+  const [currencyName, setCurrencyName] = useState<string>('')
 
   const classes = useStyles()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setCurrency(e.currentTarget.value)
+    setCurrencyName(e.currentTarget.value)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    onSubmit(currency)
+    onSubmit(currencyName)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField label="Cryptocurrency name" onChange={handleChange} value={currency} />
+      <TextField label="Cryptocurrency name" onChange={handleChange} value={currencyName} />
       <Button
         variant="contained"
         color="primary"
-        disabled={!currency}
+        disabled={!currencyName}
         type="submit"
         className={classes.button}
       >

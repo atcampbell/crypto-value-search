@@ -1,18 +1,20 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { Currency } from '../../types/Currency'
+import { PriceHistory } from '../../types/PriceHistory'
 import CryptocurrencySearchTool from '../CryptocurrencySearchTool'
 
 const defaultProps = {
   handleSearch: jest.fn(),
   previousSearches: [],
-  currencyData: null,
+  currency: null,
   priceHistory: null,
   loading: false,
   error: '',
 }
 
-const currencyData: ICurrency = {
+const currency: Currency = {
   currentValue: 1,
   imageUrl: 'img',
   marketCapRank: 2,
@@ -20,7 +22,7 @@ const currencyData: ICurrency = {
   priceChangePercentage24h: 3,
 }
 
-const priceHistory: IPriceHistory = {
+const priceHistory: PriceHistory = {
   history: [
     [123, 1.1],
     [456, 2.2],
@@ -71,17 +73,17 @@ describe('<CryptocurrencySearchTool />', () => {
       const { getByText } = render(
         <CryptocurrencySearchTool
           {...defaultProps}
-          currencyData={currencyData}
+          currency={currency}
           priceHistory={priceHistory}
         />,
       )
-      expect(getByText(currencyData.name)).toBeInTheDocument()
+      expect(getByText(currency.name)).toBeInTheDocument()
     })
     it('should render price history', () => {
       const { getByText } = render(
         <CryptocurrencySearchTool
           {...defaultProps}
-          currencyData={currencyData}
+          currency={currency}
           priceHistory={priceHistory}
         />,
       )

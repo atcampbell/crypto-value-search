@@ -9,12 +9,13 @@ import {
   VictoryTheme,
 } from 'victory'
 import { Paper } from '@material-ui/core'
+import { PriceHistory } from '../types/PriceHistory'
 
-interface PriceHistoryProps {
-  data: IPriceHistory
+interface PriceHistoryChartProps {
+  priceHistory: PriceHistory
 }
 
-function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
+function PriceHistoryChart({ priceHistory }: PriceHistoryChartProps): JSX.Element {
   return (
     <Paper>
       <VictoryChart
@@ -48,10 +49,10 @@ function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
           style={{ tickLabels: { fontSize: 8 } }}
         />
         <VictoryAxis tickFormat={() => ''} />
-        <VictoryLine data={data.history} x={0} y={1} style={{ data: { strokeWidth: 1 } }} />
+        <VictoryLine data={priceHistory.history} x={0} y={1} style={{ data: { strokeWidth: 1 } }} />
       </VictoryChart>
     </Paper>
   )
 }
 
-export default PriceHistory
+export default PriceHistoryChart

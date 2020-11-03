@@ -9,12 +9,13 @@ import {
   Paper,
 } from '@material-ui/core'
 import { green, red } from '@material-ui/core/colors'
+import { Currency } from '../types/Currency'
 
-interface CurrenctProps {
-  data: ICurrency
+interface CurrenctTableProps {
+  currency: Currency
 }
 
-function Currency({ data }: CurrenctProps): JSX.Element {
+function CurrencyTable({ currency }: CurrenctTableProps): JSX.Element {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -30,16 +31,16 @@ function Currency({ data }: CurrenctProps): JSX.Element {
         <TableBody>
           <TableRow>
             <TableCell>
-              <img src={data.imageUrl} alt={`${data.name} logo`}></img>
+              <img src={currency.imageUrl} alt={`${currency.name} logo`}></img>
             </TableCell>
-            <TableCell>{data.name}</TableCell>
-            <TableCell align="right">{`$${data.currentValue}`}</TableCell>
-            <TableCell align="right">{data.marketCapRank}</TableCell>
+            <TableCell>{currency.name}</TableCell>
+            <TableCell align="right">{`$${currency.currentValue}`}</TableCell>
+            <TableCell align="right">{currency.marketCapRank}</TableCell>
             <TableCell
               align="right"
-              style={{ color: data.priceChangePercentage24h > 0 ? green[500] : red[500] }}
+              style={{ color: currency.priceChangePercentage24h > 0 ? green[500] : red[500] }}
             >
-              {`${data.priceChangePercentage24h.toFixed(1)}%`}
+              {`${currency.priceChangePercentage24h.toFixed(1)}%`}
             </TableCell>
           </TableRow>
         </TableBody>
@@ -48,4 +49,4 @@ function Currency({ data }: CurrenctProps): JSX.Element {
   )
 }
 
-export default Currency
+export default CurrencyTable

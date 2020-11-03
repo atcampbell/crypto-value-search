@@ -2,10 +2,6 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { List, ListItem, ListItemText, ListSubheader, Paper } from '@material-ui/core'
 
-interface PreviousSearchesProps {
-  previousSearches: string[]
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -23,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }))
+
+interface PreviousSearchesProps {
+  previousSearches: string[]
+}
 
 function PreviousSearches({ previousSearches }: PreviousSearchesProps): JSX.Element {
   const classes = useStyles()
