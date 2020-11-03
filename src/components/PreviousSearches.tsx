@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function PreviousSearches({ previousSearches }: PreviousSearchesProps): JSX.Element {
+function PreviousSearches({ previousSearches }: PreviousSearchesProps): JSX.Element {
   const classes = useStyles()
 
   return !previousSearches.length ? (
@@ -46,3 +46,5 @@ export default function PreviousSearches({ previousSearches }: PreviousSearchesP
     </Paper>
   )
 }
+
+export default PreviousSearches

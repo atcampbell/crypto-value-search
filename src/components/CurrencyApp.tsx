@@ -1,43 +1,41 @@
 import React from 'react'
-import CurrencySearch from './CurrencySearch'
-import PreviousSearches from './PreviousSearches'
-import Currency from '../types/Currency'
-import CurrencyData from './CurrencyData'
-import PriceHistoryData from '../types/PriceHistoryDate'
-import PriceHistory from './PriceHistory'
 import { Container, Typography, Grid, CircularProgress } from '@material-ui/core'
-import Error from './Error'
+import QueryForm from './QueryForm'
+import PreviousSearches from './PreviousSearches'
+import Currency from './Currency'
+import PriceHistory from './PriceHistory'
+import ErrorCard from './ErrorCard'
 
-interface AppPropTypes {
+interface CurrencyAppProps {
   handleSearch: (query: string) => void
-  prevSearches: string[]
-  currencyData: Currency | null
-  priceHistory: PriceHistoryData | null
+  previousSearches: string[]
+  currencyData: ICurrency | null
+  priceHistory: IPriceHistory | null
   loading: boolean
   error: string
 }
 
-export default function App({
+function CurrencyApp({
   handleSearch,
-  prevSearches,
+  previousSearches,
   currencyData,
   priceHistory,
   loading,
   error,
-}: AppPropTypes): JSX.Element {
+}: CurrencyAppProps): JSX.Element {
   return (
     <Container>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="center">
         <Grid item xs={12}>
           <Typography variant="h3" gutterBottom>
             Cryptocurrency Search Tool
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <CurrencySearch onSubmit={handleSearch} />
+          <QueryForm onSubmit={handleSearch} />
         </Grid>
         <Grid item xs={6}>
-          <PreviousSearches previousSearches={prevSearches} />
+          <PreviousSearches previousSearches={previousSearches} />
         </Grid>
         {loading && (
           <Grid item xs={12}>
@@ -46,13 +44,13 @@ export default function App({
         )}
         {error && (
           <Grid item xs={12}>
-            <Error message={error} />
+            <ErrorCard message={error} />
           </Grid>
         )}
         {currencyData && priceHistory && (
           <>
             <Grid item xs={12}>
-              <CurrencyData data={currencyData} />
+              <Currency data={currencyData} />
             </Grid>
             <Grid item xs={12}>
               <PriceHistory data={priceHistory} />
@@ -63,3 +61,5 @@ export default function App({
     </Container>
   )
 }
+
+export default CurrencyApp

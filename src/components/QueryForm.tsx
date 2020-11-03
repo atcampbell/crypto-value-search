@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-interface FormTestProps {
+interface QueryForm {
   onSubmit: (searchTerm: string) => void
 }
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function CurrencySearch({ onSubmit }: FormTestProps): JSX.Element {
+function QueryForm({ onSubmit }: QueryForm): JSX.Element {
   const [currency, setCurrency] = useState<string>('')
 
   const classes = useStyles()
@@ -28,7 +28,7 @@ export default function CurrencySearch({ onSubmit }: FormTestProps): JSX.Element
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField label="Cryptcurrency name" onChange={handleChange} value={currency} />
+      <TextField label="Cryptocurrency name" onChange={handleChange} value={currency} />
       <Button
         variant="contained"
         color="primary"
@@ -41,3 +41,5 @@ export default function CurrencySearch({ onSubmit }: FormTestProps): JSX.Element
     </form>
   )
 }
+
+export default QueryForm

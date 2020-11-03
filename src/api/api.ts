@@ -1,13 +1,7 @@
-import Currency from '../types/Currency'
-import PriceHistoryData from '../types/PriceHistoryDate'
-
-export async function fetchCurrencyData(name: string): Promise<Currency> {
+export async function fetchCurrencyData(name: string): Promise<ICurrency> {
   const response = await fetch(`https://api.coingecko.com/api/v3/coins/${name}`)
   try {
     const body = await response.json()
-    if (body.error) {
-      throw new Error(body.error)
-    }
     const currencyData = {
       name: body.name,
       imageUrl: body.image.small,
@@ -17,24 +11,21 @@ export async function fetchCurrencyData(name: string): Promise<Currency> {
     }
     return currencyData
   } catch (e) {
-    throw new Error(e)
+    throw new Error(`${response.status} - Error finding currency ${name}`)
   }
 }
 
-export async function fetchPriceHistory(name: string): Promise<PriceHistoryData> {
+export async function fetchPriceHistory(name: string): Promise<IPriceHistory> {
   const response = await fetch(
     `https://api.coingecko.com/api/v3/coins/${name}/market_chart?vs_currency=usd&days=7`,
   )
   try {
     const body = await response.json()
-    if (body.error) {
-      throw new Error(body.error)
-    }
     const currencyHistory = {
       history: body.prices,
     }
     return currencyHistory
   } catch (e) {
-    throw new Error(e)
+    throw new Error(`${response.status} - Error finding prices for currency ${name}`)
   }
 }

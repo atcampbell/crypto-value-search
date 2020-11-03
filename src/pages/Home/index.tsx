@@ -1,8 +1,8 @@
 import React from 'react'
-import App from '../../containers/App'
+import CurrencyAppContainer from '../../containers/CurrencyAppContainer'
 
 function Home(): JSX.Element {
-  return <App />
+  return <CurrencyAppContainer />
 }
 
 export default Home

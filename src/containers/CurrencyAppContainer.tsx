@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { fetchCurrencyData, fetchPriceHistory } from '../utils/api'
-import Currency from '../types/Currency'
-import PriceHistoryData from '../types/PriceHistoryDate'
-import App from '../components/App'
+import { fetchCurrencyData, fetchPriceHistory } from '../api/api'
+import CurrencyApp from '../components/CurrencyApp'
 
 interface State {
-  prevSearches: string[]
-  currencyData: Currency | null
-  priceHistory: PriceHistoryData | null
+  previousSearches: string[]
+  currencyData: ICurrency | null
+  priceHistory: IPriceHistory | null
   loading: boolean
   error: string
 }
 
-// TODO names of types and components
-// testing
-// give this a unique name?
-export default function (): JSX.Element {
+export default function CurrencyAppContainer(): JSX.Element {
   const [state, setState] = useState<State>({
-    prevSearches: [],
+    previousSearches: [],
     currencyData: null,
     priceHistory: null,
     loading: false,
@@ -30,17 +25,17 @@ export default function (): JSX.Element {
       try {
         const currencyDataResponse = await fetchCurrencyData(searchTerm)
         const priceHistoryResponse = await fetchPriceHistory(searchTerm)
+
         setState((state) => ({
           ...state,
           currencyData: currencyDataResponse,
           priceHistory: priceHistoryResponse,
           loading: false,
-          prevSearches: [currencyDataResponse.name, ...state.prevSearches],
+          previousSearches: [currencyDataResponse.name, ...state.previousSearches],
         }))
       } catch (e) {
         setState((state: State) => ({
           ...state,
-          currencyData: null,
           loading: false,
           error: e.message,
         }))
@@ -53,6 +48,7 @@ export default function (): JSX.Element {
         currencyData: null,
         priceHistory: null,
         loading: true,
+        error: '',
       }))
       getCurrencyData(query)
     }
@@ -63,11 +59,11 @@ export default function (): JSX.Element {
   }
 
   return (
-    <App
+    <CurrencyApp
       currencyData={state.currencyData}
       priceHistory={state.priceHistory}
       error={state.error}
-      prevSearches={state.prevSearches}
+      previousSearches={state.previousSearches}
       loading={state.loading}
       handleSearch={handleSearch}
     />

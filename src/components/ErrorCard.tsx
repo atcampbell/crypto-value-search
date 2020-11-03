@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Error({ message }: ErrorPropTypes): JSX.Element {
+function ErrorCard({ message }: ErrorPropTypes): JSX.Element {
   const classes = useStyles()
   return (
     <Card color="error" className={classes.root}>
@@ -22,3 +22,5 @@ export default function Error({ message }: ErrorPropTypes): JSX.Element {
     </Card>
   )
 }
+
+export default ErrorCard

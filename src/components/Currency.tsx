@@ -1,5 +1,4 @@
 import React from 'react'
-import Currency from '../types/Currency'
 import {
   Table,
   TableBody,
@@ -11,11 +10,11 @@ import {
 } from '@material-ui/core'
 import { green, red } from '@material-ui/core/colors'
 
-interface CurrenctDataProps {
-  data: Currency
+interface CurrenctProps {
+  data: ICurrency
 }
 
-export default function CurrencyData({ data }: CurrenctDataProps): JSX.Element {
+function Currency({ data }: CurrenctProps): JSX.Element {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -48,3 +47,5 @@ export default function CurrencyData({ data }: CurrenctDataProps): JSX.Element {
     </TableContainer>
   )
 }
+
+export default Currency
