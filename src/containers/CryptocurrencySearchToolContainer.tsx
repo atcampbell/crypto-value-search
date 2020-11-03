@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { fetchCurrencyData, fetchPriceHistory } from '../api/api'
-import CurrencyApp from '../components/CurrencyApp'
+import CryptocurrencySearchTool from '../components/CryptocurrencySearchTool'
 
 interface State {
   previousSearches: string[]
@@ -10,7 +10,7 @@ interface State {
   error: string
 }
 
-export default function CurrencyAppContainer(): JSX.Element {
+function CryptocurrencySearchToolContainer(): JSX.Element {
   const [state, setState] = useState<State>({
     previousSearches: [],
     currencyData: null,
@@ -59,7 +59,7 @@ export default function CurrencyAppContainer(): JSX.Element {
   }
 
   return (
-    <CurrencyApp
+    <CryptocurrencySearchTool
       currencyData={state.currencyData}
       priceHistory={state.priceHistory}
       error={state.error}
@@ -69,3 +69,5 @@ export default function CurrencyAppContainer(): JSX.Element {
     />
   )
 }
+
+export default CryptocurrencySearchToolContainer

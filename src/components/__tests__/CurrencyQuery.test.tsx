@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import CurrencyApp from '../CurrencyApp'
+import CryptocurrencySearchTool from '../CryptocurrencySearchTool'
 
 const defaultProps = {
   handleSearch: jest.fn(),
@@ -27,15 +27,15 @@ const priceHistory: IPriceHistory = {
   ],
 }
 
-describe('<CurrencyQuery />', () => {
+describe('<CryptocurrencySearchTool />', () => {
   describe('when rendered without currency data', () => {
     it('should render title', () => {
-      const { getByText } = render(<CurrencyApp {...defaultProps} />)
+      const { getByText } = render(<CryptocurrencySearchTool {...defaultProps} />)
       expect(getByText('Cryptocurrency Search Tool')).toBeInTheDocument()
     })
 
     it('should render search fields', () => {
-      const { getByText, getByRole } = render(<CurrencyApp {...defaultProps} />)
+      const { getByText, getByRole } = render(<CryptocurrencySearchTool {...defaultProps} />)
       expect(getByRole('button', { name: 'Search' })).toBeInTheDocument()
       expect(getByRole('button', { name: 'Search' })).toBeDisabled()
       expect(getByText('Cryptocurrency name')).toBeInTheDocument()
@@ -43,7 +43,7 @@ describe('<CurrencyQuery />', () => {
 
     it('should render previous searches', () => {
       const { getByText } = render(
-        <CurrencyApp {...defaultProps} previousSearches={['bitcoin', 'ethereum']} />,
+        <CryptocurrencySearchTool {...defaultProps} previousSearches={['bitcoin', 'ethereum']} />,
       )
       expect(getByText('bitcoin')).toBeInTheDocument()
       expect(getByText('ethereum')).toBeInTheDocument()
@@ -52,14 +52,16 @@ describe('<CurrencyQuery />', () => {
 
   describe('when loading', () => {
     it('should render loading spinner', () => {
-      const { getByRole } = render(<CurrencyApp {...defaultProps} loading />)
+      const { getByRole } = render(<CryptocurrencySearchTool {...defaultProps} loading />)
       expect(getByRole('progressbar')).toBeInTheDocument()
     })
   })
 
   describe('when error is present', () => {
     it('should render error message', () => {
-      const { getByText } = render(<CurrencyApp {...defaultProps} error="error text" />)
+      const { getByText } = render(
+        <CryptocurrencySearchTool {...defaultProps} error="error text" />,
+      )
       expect(getByText('error text')).toBeInTheDocument()
     })
   })
@@ -67,13 +69,21 @@ describe('<CurrencyQuery />', () => {
   describe('when data present', () => {
     it('should render currency data', () => {
       const { getByText } = render(
-        <CurrencyApp {...defaultProps} currencyData={currencyData} priceHistory={priceHistory} />,
+        <CryptocurrencySearchTool
+          {...defaultProps}
+          currencyData={currencyData}
+          priceHistory={priceHistory}
+        />,
       )
       expect(getByText(currencyData.name)).toBeInTheDocument()
     })
     it('should render price history', () => {
       const { getByText } = render(
-        <CurrencyApp {...defaultProps} currencyData={currencyData} priceHistory={priceHistory} />,
+        <CryptocurrencySearchTool
+          {...defaultProps}
+          currencyData={currencyData}
+          priceHistory={priceHistory}
+        />,
       )
       expect(getByText('7 day price history')).toBeInTheDocument()
     })

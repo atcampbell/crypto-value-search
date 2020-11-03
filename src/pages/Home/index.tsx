@@ -1,8 +1,13 @@
 import React from 'react'
-import CurrencyAppContainer from '../../containers/CurrencyAppContainer'
+import { Container } from '@material-ui/core'
+import CryptocurrencySearchToolContainer from '../../containers/CryptocurrencySearchToolContainer'
 
 function Home(): JSX.Element {
-  return <CurrencyAppContainer />
+  return (
+    <Container>
+      <CryptocurrencySearchToolContainer />
+    </Container>
+  )
 }
 
 export default Home

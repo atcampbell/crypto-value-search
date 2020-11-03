@@ -19,7 +19,7 @@ function PriceHistory({ data }: PriceHistoryProps): JSX.Element {
     <Paper>
       <VictoryChart
         theme={VictoryTheme.material}
-        height={250}
+        height={200}
         containerComponent={
           <VictoryVoronoiContainer
             labels={({ datum }) =>
